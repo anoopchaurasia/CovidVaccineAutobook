@@ -10,9 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "nvm": "0.0.4",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-android-sms-listener": "^0.8.0",
+    "react-native-cli": "^2.0.1",
     "react-native-local-storage": "^1.5.2",
     "react-native-sha256": "^1.4.7"
   },

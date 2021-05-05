@@ -2,12 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { View, TextInput } from 'react-native';
 import localStorage from 'react-native-local-storage'
 
-export default function pincodes({setPincodes}) {
+export default function pincodes() {
     let [value, set] = useState(null);
     useEffect(  x=>{
         localStorage.get('pincodes').then(pincodes=>{
             set(pincodes|| "")
-            setPincodes(pincodes)
         })
     })
     return <View>

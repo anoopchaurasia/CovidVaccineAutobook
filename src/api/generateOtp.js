@@ -15,11 +15,3 @@ export default function generateOTP(mobile){
         "credentials": "omit"
         }).then(x=>x.json());
 }
-
-//  "{\"secret\":\"U2FsdGVkX1/Au70IXHaYJwwjzcnH7omDLKmCZIyv4pWT7K9YutD3wR3Zqvp71LrBIgeeyEnM5qo7WOsckYY+SA==\",\"mobile\":7760459008}",
-
-
-// "CoWIN@$#&*(!@%^&"
-// "CoWIN@$#&*(!@%^&"
-
-// "CoWIN@$#&*(!@%^&".set("b5cab167-7977-4df1-8027-a63aa144f04e")

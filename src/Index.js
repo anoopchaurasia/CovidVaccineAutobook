@@ -7,21 +7,20 @@ import pincodecheck from './checkforallpincodes';
 import validateOTP from './api/validateOTP';
 import beneficiary from './api/benefeciary'
 import PincodeView from './component/pincodes'
+import FromDateView from './component/fromdate'
 import DurationView from './component/duration'
 import pincodes from './component/pincodes';
 import Login from './component/login'
 import handleSMS from './component/handleSMS';
 
-export default function yyuyuyu(){
-    let fromdate //= await localStorage.get('fromdate');
-    handleSMS(async await localStorage.get('txnId')l
-        validateOTP(otphash, txnId).then(async x=> {
+export default function Index(){
+    handleSMS(async otphash=>{
+        validateOTP(otphash, await localStorage.get('txnId')).then(async x=> {
             await localStorage.save("token", x.token)
-        })
+        });
     })
  
     Login();
-    
 
     setInterval(async x=>{
         localStorage.get('token').then(token=>{
@@ -33,16 +32,15 @@ export default function yyuyuyu(){
                 beneficiaries = x.beneficiaries.map(x=>x.beneficiary_reference_id)
             }).catch(x=> Login());
         })
-        } ,5.1*60*1000);
+    } ,5.1*60*1000);
     
     
 
-    const setPincodes = x=> pincodes=x;
-    const callme = x=>{
+    const callme = async x=>{
         console.info(Math.abs((Date.now() - date)/1000))
-        pincodecheck(pincodes, fromdate || todayDate(), function(data){
-            console.log(data, "45445");
-          //  debugger
+        let pincodes = JSON.parse(await localStorage.get('pincodes'));
+        let fromdate = await localStorage.get('fromdate');
+        pincodecheck(pincodes, fromdate, function(data){
             data && data.centers &&
             data.centers.filter(center=> {
                 center.sessions.filter(session=>{
@@ -56,12 +54,12 @@ export default function yyuyuyu(){
 
    
     return <>
-     <PincodeView setPincodes={setPincodes} />
-     <DurationView callme={callme} />
+        <PincodeView />
+        <DurationView callme={callme} />
+        <FromDateView  />
      </>
 };
 
-      
 let inprocess = false;
 async function process(center, session, beneficiaries) {
     let token = await localStorage.get("token");
@@ -82,11 +80,3 @@ async function process(center, session, beneficiaries) {
     return true;
 }
 
-function todayDate(){
-    let date = new Date()
-    return two(date.getDate())+"-"+two(date.getMonth()+1)+"-"+date.getFullYear();
-}
-
-function two(k){
-    return ("0"+k).slice(-2);
-}
