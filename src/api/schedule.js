@@ -13,5 +13,6 @@ export default async function schedule(data, token){
   "body": JSON.stringify(data),
   "method": "POST",
   "credentials": "include"
-}).then(x=>x.json());
+}).then(x=>    x.json().catch(err=>console.error(err))
+);
 }

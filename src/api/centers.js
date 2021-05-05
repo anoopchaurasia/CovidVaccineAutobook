@@ -13,6 +13,6 @@ export default async function httpGet(pincode, date){
           "credentials": "omit"
     }).then(async x=> {
         console.log(x.status, pincode, date)
-        return x.json();
+        return x.json().catch(err=> console.error(err));
     })
 }

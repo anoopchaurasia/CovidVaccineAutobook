@@ -13,5 +13,10 @@ export default function generateOTP(mobile){
         "body": '{"secret":"U2FsdGVkX1/Au70IXHaYJwwjzcnH7omDLKmCZIyv4pWT7K9YutD3wR3Zqvp71LrBIgeeyEnM5qo7WOsckYY+SA==","mobile":'+mobile+'}',
         "method": "POST",
         "credentials": "omit"
-        }).then(x=>x.json());
+        }).then(x=>   {
+
+         x.json().catch(err=>console.error(err))
+         console.log('generate otp');
+
+    });
 }

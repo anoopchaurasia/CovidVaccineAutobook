@@ -12,6 +12,8 @@ export default function validateOTP(otp, txnId){
   "method": "POST",
   "credentials": "omit"
 }).then(x=>{
+  console.log('validate otp');
+
     if(x.status===200)
     return x.json()
     console.error(x, x.status, x.textMessage, otp, txnId)

@@ -1,4 +1,5 @@
 export default async function beneficiary(token){
+  console.log('get benificiary')
     return fetch("https://cdn-api.co-vin.in/api/v2/appointment/beneficiaries", {
     "headers": {
       "accept": "application/json, text/plain, */*",
@@ -10,5 +11,8 @@ export default async function beneficiary(token){
     "referrerPolicy": "strict-origin-when-cross-origin",
     "method": "GET",
     "credentials": "include"
-  }).then(x=>x.json());
+  }).then(x=>{
+    console.log('got benificiary')
+   return x.json().catch(err=>console.error(err))
+  });
 }

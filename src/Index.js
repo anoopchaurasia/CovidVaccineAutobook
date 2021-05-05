@@ -9,20 +9,19 @@ import beneficiary from './api/benefeciary'
 import PincodeView from './component/pincodes'
 import FromDateView from './component/fromdate'
 import DurationView from './component/duration'
-import pincodes from './component/pincodes';
 import Login from './component/login'
 import handleSMS from './component/handleSMS';
+import PhoneNumberView from './component/phonenumber'
 
 export default function Index(){
     handleSMS(async otphash=>{
         validateOTP(otphash, await localStorage.get('txnId')).then(async x=> {
             await localStorage.save("token", x.token)
-        });
+        }).catch(x=> console.error(e));
     })
  
-    Login();
-
-    setInterval(async x=>{
+    let beneficiaries;
+    function getBenficiries(){
         localStorage.get('token').then(token=>{
             if(!token) return Login();
             beneficiary(token).then(x=>{
@@ -30,33 +29,34 @@ export default function Index(){
                     return Login()
                 }
                 beneficiaries = x.beneficiaries.map(x=>x.beneficiary_reference_id)
+
             }).catch(x=> Login());
         })
+    }
+    setInterval(async x=>{
+        getBenficiries()
     } ,5.1*60*1000);
-    
-    
-
     const callme = async x=>{
-        console.info(Math.abs((Date.now() - date)/1000))
-        let pincodes = JSON.parse(await localStorage.get('pincodes'));
+        let pincodes =( await localStorage.get('pincodes')).split(",");
         let fromdate = await localStorage.get('fromdate');
+        
+        if(!beneficiaries) return getBenficiries();
         pincodecheck(pincodes, fromdate, function(data){
             data && data.centers &&
             data.centers.filter(center=> {
                 center.sessions.filter(session=>{
-                    console.log(session)
-                    if(session.available_capacity>=minlength && session.min_age_limit<= 45) {
+                    if(session.available_capacity>=beneficiaries.length && session.min_age_limit<= 45) {
                         process(center, session, beneficiaries)
                     }
                 }).length>0 })
         });
     };
 
-   
     return <>
+        <PhoneNumberView />
         <PincodeView />
         <DurationView callme={callme} />
-        <FromDateView  />
+        <FromDateView />
      </>
 };
 
@@ -79,4 +79,3 @@ async function process(center, session, beneficiaries) {
       console.error(data)
     return true;
 }
-
