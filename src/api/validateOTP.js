@@ -5,6 +5,7 @@ export default function validateOTP(otp, txnId){
     "accept-language": "en-US,en;q=0.9",
     "cache-control": "no-cache",
     "content-type": "application/json",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
   },
   "referrer": "https://selfregistration.cowin.gov.in/",
   "referrerPolicy": "strict-origin-when-cross-origin",

@@ -1,22 +1,26 @@
 import React from 'react';
 
-export default function generateOTP(mobile){
+export default function generateOTP(mobile) {
     return fetch("https://cdn-api.co-vin.in/api/v2/auth/generateMobileOTP", {
         "headers": {
-            "accept": "application/json, text/plain, */*",
-            "accept-language": "en-US,en;q=0.9",
-            "cache-control": "no-cache",
-            "content-type": "application/json",
+          "content-type": "application/json",
+          "pragma": "no-cache",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
+         
         },
         "referrer": "https://selfregistration.cowin.gov.in/",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": '{"secret":"U2FsdGVkX1/Au70IXHaYJwwjzcnH7omDLKmCZIyv4pWT7K9YutD3wR3Zqvp71LrBIgeeyEnM5qo7WOsckYY+SA==","mobile":'+mobile+'}',
+        "body": "{\"secret\":\"U2FsdGVkX1+e12Snj4fQSPX6cOmrVoY81plN+8L4JYwI8ZE1EJ2Td2lmaEFsTIgjJ+La+ZreoyZRfD1nXqL1Rg==\",\"mobile\":7760459008}",
         "method": "POST",
-        "credentials": "omit"
-        }).then(x=>   {
-
-         x.json().catch(err=>console.error(err))
-         console.log('generate otp');
+      }).then(x => {
+        if(x.ok)
+            return x.json().catch(err => console.error(err))
+        console.log('generate otp');
 
     });
 }
+
+//secret: "U2FsdGVkX1+e12Snj4fQSPX6cOmrVoY81plN+8L4JYwI8ZE1EJ2Td2lmaEFsTIgjJ+La+ZreoyZRfD1nXqL1Rg=="
+
+
+

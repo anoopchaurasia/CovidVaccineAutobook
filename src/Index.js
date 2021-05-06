@@ -15,15 +15,21 @@ import PhoneNumberView from './component/phonenumber'
 
 export default function Index(){
     handleSMS(async otphash=>{
+        completed=true;
         validateOTP(otphash, await localStorage.get('txnId')).then(async x=> {
             await localStorage.save("token", x.token)
         }).catch(x=> console.error(e));
     })
  
-    let beneficiaries;
+    let beneficiaries, completed = true;
     function getBenficiries(){
+        if(!completed) return;
+        completed=false;
+        setTimeout(x=>completed=true, 1*60*1000);
         localStorage.get('token').then(token=>{
-            if(!token) return Login();
+            if(!token){
+                 return Login();
+            }
             beneficiary(token).then(x=>{
                 if(!x || !x.beneficiaries) {
                     return Login()
@@ -42,6 +48,7 @@ export default function Index(){
         
         if(!beneficiaries) return getBenficiries();
         pincodecheck(pincodes, fromdate, function(data){
+            if(!x) return
             data && data.centers &&
             data.centers.filter(center=> {
                 center.sessions.filter(session=>{
@@ -79,3 +86,6 @@ async function process(center, session, beneficiaries) {
       console.error(data)
     return true;
 }
+
+
+//      <service android:name="com.covidvaccineautobook.setInetrvalTaskService" />
