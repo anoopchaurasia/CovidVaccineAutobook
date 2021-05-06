@@ -20,11 +20,10 @@ import {
 } from 'react-native';
 
 import {
-  Colors,
-  
-  Header,
+  Colors
 } from 'react-native/Libraries/NewAppScreen';
 
+import Header from './src/component/header';
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
