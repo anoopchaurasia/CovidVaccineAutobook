@@ -10,9 +10,11 @@ export default function pincodes() {
         })
     })
     return <View>
+        <View>Pincode</View>
          <TextInput
         onChangeText={x=> {localStorage.save('pincodes', x), set(x)}}
         value={value}
+        multiline={true}
         placeholder="pincodes"
         keyboardType="numeric"
       />

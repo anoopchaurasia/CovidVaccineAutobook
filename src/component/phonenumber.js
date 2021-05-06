@@ -10,11 +10,13 @@ export default function phonenumber() {
         })
     })
     return <View>
+        <Text >Phone Number</Text>
          <TextInput
         onChangeText={x=> {localStorage.save('phonenumber', x), set(x)}}
         value={value}
         placeholder="phonenumber"
         keyboardType="numeric"
+        dataDetectorTypes="phoneNumber"
       />
     </View>
 }
