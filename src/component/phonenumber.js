@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import localStorage from 'react-native-local-storage'
 
 export default function phonenumber() {
@@ -14,6 +14,8 @@ export default function phonenumber() {
          <TextInput
         onChangeText={x=> {localStorage.save('phonenumber', x), set(x)}}
         value={value}
+        style={{borderColor:"black", borderWidth:1, marginTop:10, marginBottom:10}}
+
         placeholder="phonenumber"
         keyboardType="numeric"
         dataDetectorTypes="phoneNumber"

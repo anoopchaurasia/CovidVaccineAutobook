@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import localStorage from 'react-native-local-storage'
 
 let clearIntervalV;
@@ -21,6 +21,8 @@ export default function fromDate({callme}) {
          <TextInput
         onChangeText={x=> {if(x<10000) return;localStorage.save('fromdate', x), set(x)}}
         value={value}
+        style={{borderColor:"black", borderWidth:1, marginTop:10, marginBottom:10, width:100}}
+
         placeholder="fromDate"
         keyboardType="numeric"
         dataDetectorTypes="calendarEvent"

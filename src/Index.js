@@ -39,11 +39,14 @@ export default function Index(){
             }).catch(x=> Login());
         })
     }
-    setInterval(async x=>{
-        getBenficiries()
-    } ,5.1*60*1000);
+    let starttime = Date.now();
     const callme = async x=>{
-        let pincodes =( await localStorage.get('pincodes')).split(",");
+        console.log("callme", new Date());
+        if(Date.now()-starttime> 5*60*1000){
+            getBenficiries();
+            starttime = Date.now();
+        }
+        let pincodes =( await localStorage.get('pincodes')).split(",").map(x=>x.trim()).filter(x=>x.length==6);
         let fromdate = await localStorage.get('fromdate');
         
         if(!beneficiaries) return getBenficiries();
