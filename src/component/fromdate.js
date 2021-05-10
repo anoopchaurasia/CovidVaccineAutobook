@@ -7,10 +7,12 @@ export default function fromDate({callme}) {
     let [value, set] = useState(null);
     useEffect(  x=>{
         localStorage.get('fromdate').then((fromDate= todayDate())=>{
+            
             fromDate = fromDate || todayDate();
             if(reverseString(fromDate)< reverseString(todayDate())) {
                 fromDate = todayDate();
             }
+            localStorage.save('fromdate', fromDate);
             set(fromDate);
         })
     })
@@ -19,7 +21,7 @@ export default function fromDate({callme}) {
             From Date:
         </Text>
          <TextInput
-        onChangeText={x=> {if(x<10000) return;localStorage.save('fromdate', x), set(x)}}
+        onChangeText={x=> { localStorage.save('fromdate', x), set(x)}}
         value={value}
         style={{borderColor:"black", borderWidth:1, marginTop:10, marginBottom:10, width:100}}
 
