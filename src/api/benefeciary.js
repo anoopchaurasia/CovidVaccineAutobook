@@ -13,7 +13,7 @@ export default async function beneficiary(token){
     "method": "GET",
     "credentials": "include"
   }).then((x, err)=>{
-    console.log('got benificiary')
+    console.log('got benificiary', x.status)
     if(x.ok)
       return x.json().catch(err=>console.error(err))
   });

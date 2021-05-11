@@ -13,5 +13,9 @@ export default async function httpGet(district_id, date, token){
           "referrer": "https://selfregistration.cowin.gov.in/",
           "referrerPolicy": "strict-origin-when-cross-origin",
           "credentials": "omit"
+    }).then(x=>{
+        if(x.ok){
+            return x.json()
+        }
     })
 }

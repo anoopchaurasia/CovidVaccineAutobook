@@ -17,13 +17,16 @@ export default function timer({callme}) {
             localStorage.get('timer', timer);
             BackgroundTimer.clearInterval(clearIntervalV);
             console.log(timer*1)
-            clearIntervalV = BackgroundTimer.setInterval(callme, timer *1000);
+            clearIntervalV = BackgroundTimer.setInterval(x=> {
+                var a= 56;
+                callme()
+            }, timer *1000);
         })();
     })
-    return <View>
+    return <View style={{ margin: 10, borderWidth: 1, borderColor: "#dddddd", padding: 10 }}>
         <Text>Availability check frequency (seconds)</Text>
          <TextInput
-         style={{borderColor:"black", borderWidth:1, marginTop:10, marginBottom:10, width:100}}
+         style={{borderColor:"black", padding:10, borderWidth:1, marginTop:10, marginBottom:10, width:100}}
         onChangeText={x=> {x = parseInt(x); if(!x || x<10) return; set((x))}}
         value={timer + ""}
         placeholder="timer"
