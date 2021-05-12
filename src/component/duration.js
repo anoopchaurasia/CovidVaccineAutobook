@@ -11,7 +11,7 @@ export default function timer({callme}) {
     useEffect(  x=>{
         (async function XX(){
             if(!timer) {
-                timer = await localStorage.get('timer', timer) || "10";
+                timer = await localStorage.get('timer', timer) || "20";
                 return set(timer);
             }
             localStorage.get('timer', timer);

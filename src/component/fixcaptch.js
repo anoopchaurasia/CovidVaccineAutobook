@@ -8,9 +8,9 @@ export default function CaptchUI({ callCaptch, onPress }) {
     let [captch, setCaptch] = useState(null);
     let [txt, setText] = useState("");
     let [data, setData] = useState();
-    callCaptch(async (token, d) => {
+    callCaptch(async (d) => {
         setData(d);
-        await setCaptch11(token)
+        await setCaptch11()
     });
 
     async function setCaptch11(token) {
@@ -22,7 +22,7 @@ export default function CaptchUI({ callCaptch, onPress }) {
 
     return <View style={{ margin: 10, borderWidth: 1, borderColor: "#dddddd", padding: 10 }}>
     {data ? <>
-        <Text style={{color:"#ccccc"}}>Captcha:</Text>
+        <Text style={{color:"#cccccc"}}>Captcha:</Text>
         <View style={{flexDirection:"row", height:110}}>
             <View style={{flex:3}}>
                 <SvgXml
