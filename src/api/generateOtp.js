@@ -13,8 +13,10 @@ export default function generateOTP(mobile) {
         "body": "{\"secret\":\"U2FsdGVkX1+e12Snj4fQSPX6cOmrVoY81plN+8L4JYwI8ZE1EJ2Td2lmaEFsTIgjJ+La+ZreoyZRfD1nXqL1Rg==\",\"mobile\":7760459008}",
         "method": "POST",
       }).then(x => {
-        if(x.ok)
+        if(x.ok){
+          console.log("otp gen");
             return x.json().catch(err => console.error(err))
+        }
         console.log('generate otp');
 
     });

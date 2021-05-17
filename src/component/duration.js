@@ -11,10 +11,10 @@ export default function timer({callme}) {
     useEffect(  x=>{
         (async function XX(){
             if(!timer) {
-                timer = await localStorage.get('timer', timer) || "20";
+                timer = await localStorage.get('timer', timer) || "10";
                 return set(timer);
             }
-            localStorage.get('timer', timer);
+            localStorage.save('timer', timer);
             BackgroundTimer.clearInterval(clearIntervalV);
             console.log(timer*1)
             clearIntervalV = BackgroundTimer.setInterval(x=> {

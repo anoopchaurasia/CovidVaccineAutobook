@@ -12,6 +12,8 @@ target 'covidVaccineAutobook' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-notification-sounds', :path => '../node_modules/react-native-notification-sounds'
+
   target 'covidVaccineAutobookTests' do
     inherit! :complete
     # Pods for testing

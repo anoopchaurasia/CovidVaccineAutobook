@@ -24,7 +24,7 @@ export default function Sessions({checkslotsCB, onDataAvail}){
         let validList = [];
         centers.filter(center => {
             center.sessions.forEach(session => {
-                if (session.available_capacity >= beneficiaries.length && session.min_age_limit <= 45) {
+                if (session.available_capacity >= beneficiaries.length && session.min_age_limit < 45) {
                     validList.push({ session, token, beneficiaries, center })
                     console.log(session.date, center.pincode, center.name, session.available_capacity, "founddata");
                 }

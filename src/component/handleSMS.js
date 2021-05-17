@@ -7,11 +7,11 @@ import { sha256 } from 'react-native-sha256';
 letestTimestamp = null;
 requestReadSmsPermission();
 SmsListener.addListener(message => {
+    console.log("got message");
     if (!message.originatingAddress.match(/NHPSMS/) || !message.body.match(/CoWin/i)) return;
     if(message.timestamp === letestTimestamp) return;
     letestTimestamp = message.timestamp;
     if(message.body.match(/ \d{6}\./)==null) return;
-    console.log("got message")
     rrr(message.body.match(/ \d{6}\./)[0].trim().slice(0,6))
 });
 let otpHandler; 

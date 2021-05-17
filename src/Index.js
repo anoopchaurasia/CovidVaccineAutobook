@@ -6,7 +6,7 @@ console.log = function () {
 
 import NotificationSounds, { playSampleSound } from  'react-native-notification-sounds';
 import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
-import {View, PermissionsAndroid, Picker, NativeModules } from 'react-native';
+import {View, PermissionsAndroid, Picker, NativeModules, Text } from 'react-native';
 import SessionView from "./component/sessions";
 import localStorage from 'react-native-local-storage'
 import schedule from './api/schedule';
@@ -20,12 +20,12 @@ import handleSMS from './component/handleSMS';
 import PhoneNumberView from './component/phonenumber'
 import BackgroundTimer from 'react-native-background-timer';
 import CaptchUI from './component/fixcaptch';
-
+import Beneficiries from "./component/benefeciries";
 
 let sound ;
 export default function Index() {
     NotificationSounds.getNotifications('notification').then(soundsList  => {
-       sound = soundsList[1];
+       sound = soundsList[16];
     });
     PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_SMS,
@@ -47,7 +47,7 @@ export default function Index() {
         }).catch(x => console.error(e));
     })
     BackgroundTimer.start();
-    let beneficiaries;
+    let beneficiaries, beneficiariesnames;
     function getBenficiries() {
         console.log("get ben")
         localStorage.get('token').then(token => {
@@ -60,6 +60,7 @@ export default function Index() {
                 }
                 //
                 beneficiaries = x.beneficiaries.filter(x => !x.dose1_date).map(x => x.beneficiary_reference_id)
+                setBenef(x.beneficiaries.filter(x => !x.dose1_date).map(x => x.name));
 
             }).catch(x => Login());
         })
@@ -71,11 +72,14 @@ export default function Index() {
     const callme = async x => {
         if ((beneficiaries && beneficiaries.length == 0) || done) return console.log("no beneficiries ", beneficiaries);
         console.log("callme", new Date(), counter, beneficiaries && beneficiaries.length || "none");
-        if (counter > 60) {
-            counter = 0;
-            console.log("relogin");
-            Login();
-        }
+
+        localStorage.get("timer").then(d=>{
+            if (d*counter >= 600) {
+                counter = 0;
+                console.log("relogin");
+                Login();
+            }
+        })
         counter++;
         if (!beneficiaries) return getBenficiries();
         checkSlot(beneficiaries);
@@ -106,10 +110,13 @@ export default function Index() {
             playsound()
         }, 6000);
     }
-
-
+    let setBenef;
+    function setVen(cb){
+        setBenef=cb;
+    }
 
     return <View>
+        <Beneficiries setter={setVen}/>
         <SessionView onDataAvail={onDataAvail} checkslotsCB={cb_for_slot_check} />
         <CaptchUI onPress={onPress} callCaptch={callCaptch} />
         <PhoneNumberView />
@@ -142,7 +149,7 @@ async function process(center, session, beneficiaries, token, captch) {
         if (!x.ok) {
             localStorage.save('err', x.status + x.text)
         }
-        console.log(x);
+        console.error(x);
         playsound();
         inprocess = false
     }).catch(e => {
@@ -152,6 +159,3 @@ async function process(center, session, beneficiaries, token, captch) {
     console.error(data)
     return true;
 }
-
-
-//      <service android:name="com.covidvaccineautobook.setInetrvalTaskService" />
