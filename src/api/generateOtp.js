@@ -10,7 +10,7 @@ export default function generateOTP(mobile) {
         },
         "referrer": "https://selfregistration.cowin.gov.in/",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "{\"secret\":\"U2FsdGVkX1+e12Snj4fQSPX6cOmrVoY81plN+8L4JYwI8ZE1EJ2Td2lmaEFsTIgjJ+La+ZreoyZRfD1nXqL1Rg==\",\"mobile\":7760459008}",
+        "body": `{"secret":"U2FsdGVkX1+e12Snj4fQSPX6cOmrVoY81plN+8L4JYwI8ZE1EJ2Td2lmaEFsTIgjJ+La+ZreoyZRfD1nXqL1Rg==","mobile":${mobile}}`,
         "method": "POST",
       }).then(x => {
         if(x.ok){
