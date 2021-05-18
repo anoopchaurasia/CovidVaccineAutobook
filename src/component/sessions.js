@@ -24,7 +24,7 @@ export default function Sessions({checkslotsCB, onDataAvail}){
         let validList = [];
         centers.filter(center => {
             center.sessions.forEach(session => {
-                if (session.available_capacity >= beneficiaries.length && session.min_age_limit < 45) {
+                if (session.available_capacity_dose1 >= beneficiaries.length && session.min_age_limit < 45) {
                     validList.push({ session, token, beneficiaries, center })
                     console.log(session.date, center.pincode, center.name, session.available_capacity, "founddata");
                 }
@@ -43,7 +43,7 @@ export default function Sessions({checkslotsCB, onDataAvail}){
      <Picker
          style={{ height: 50, width: 150 }}
          onValueChange={(itemValue) => {console.log(itemValue, "settingdfd"); localStorage.save("selected_session", JSON.stringify(availablecenters.find(x=>x.session.session_id==itemValue)))}}>
-         {availablecenters.map(item => <Picker.Item key={item.session.session_id} label={item.center.pincode + item.center.name +  item.session.available_capacity  + item.session.date} value={item.session.session_id} /> )}
+         {availablecenters.map(item => <Picker.Item key={item.session.session_id} label={item.center.pincode + item.center.name +  item.session.available_capacity_dose1  + item.session.date} value={item.session.session_id} /> )}
      </Picker>
  </View>
 }
